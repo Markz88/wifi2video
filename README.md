@@ -133,7 +133,7 @@ This will load the model pre-trained weights from the mounted volume and run the
 
 Here is a preview of the Streamlit interface:
 
-![App Screenshot](assets/screenshot.png)
+![App Screenshot](assets/Screenshot.png)
 
 ## 📄 Citation
 
