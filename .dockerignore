@@ -1,0 +1,5 @@
+/models
+/nets/__pycache__
+/imports/__pycache__
+/output
+log.json

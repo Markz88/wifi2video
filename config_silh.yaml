@@ -1,0 +1,32 @@
+# Base parameters
+Comment: >
+    dataroot: "Dataset root directory. If empty '' is ./data/",
+    dataset_name: "Dataset name and directory",
+    output_dir: "Experiment root directory",
+    experiment_name: "Experiment name and output directory",
+    videoGAN: "{'image size','image channel','initial number of feat. maps generator','number of feat. maps discriminator','number of gpus','number of network layers','number of frames per video'}",
+    sgnlENC: "{'input sequence length (i.e., number of packets)', 'number of features per packet', '1D latent space size'}",
+    test: "{'test videos directory name','test signals directory name','batch size','flag to drop the last batch if incomplete according the batch size','flag data shuffle'}",
+    device: "gpu or cpu",
+    workers: "number of data loading workers",
+'dataroot': './datasets/'
+'dataset_name': 'Silhouette'
+'output_dir': './output'
+'experiment': 'Silhouette'
+'videoGAN': {'img_size': 128,'img_ch': 1,'ngf': 16,'ndf': 16,'ngpu': 1,'netlayers': 3,'nframes': 56}
+'sgnlENC': {'input_length': 100, 'features_size': 30, 'latent_size': 300}
+'test': {'dir_video':'Test/test_imgs','dir_sgnl':'Test/test_sgnls','batchsize': 1,'drop_last_batch': False,'shuffle': False}
+'device': 'cpu'
+'workers': 0
+
+
+# Training parameters
+Comment: >
+    save_test_video: "Flag to save test videos",
+'save_test_video': True
+
+
+# Evaluation metric
+Comment: >
+    metric: "Evaluation metric: SSIM",
+'metric': 'SSIM'
