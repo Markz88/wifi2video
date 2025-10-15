@@ -129,14 +129,29 @@ class GAN(object):
         # Load trained Signal encoder and VideoGAN decoder weigths for test
         try:
             # Load from weights directory: './models/experiment/'
-            self.VideoDEC.load_state_dict(torch.load(
-                os.path.join('models', self.opt['experiment'], 'VideoDEC.pth'), map_location=self.device)['state_dict'])
+            ckpt = torch.load(os.path.join('models', self.opt['experiment'], 'VideoDEC.pth'), map_location=self.device, weights_only=True)
+            if isinstance(ckpt, dict) and "state_dict" in ckpt:
+                state = ckpt["state_dict"]
+            elif isinstance(ckpt, dict) and "model" in ckpt and hasattr(ckpt["model"], "state_dict"):
+                state = ckpt["model"].state_dict()
+            else:
+                state = ckpt
+            
+            self.VideoDEC.load_state_dict(state, strict=True)
 
-            self.SgnlENC.load_state_dict(torch.load(
-                os.path.join('models', self.opt['experiment'], 'SgnlENC.pth'), map_location=self.device)['state_dict'])
-        except IOError:
-            raise IOError("Weigths not found.")
-        print('---> Loaded weights, starting test...')
+            ckpt = torch.load(os.path.join('models', self.opt['experiment'], 'SgnlENC.pth'), map_location=self.device, weights_only=True)
+            if isinstance(ckpt, dict) and "state_dict" in ckpt:
+                state = ckpt["state_dict"]
+            elif isinstance(ckpt, dict) and "model" in ckpt and hasattr(ckpt["model"], "state_dict"):
+                state = ckpt["model"].state_dict()
+            else:
+                state = ckpt
+
+            self.SgnlENC.load_state_dict(state, strict=True)
+
+            print('---> Loaded weights, starting test...')
+        except (FileNotFoundError, OSError) as e:
+            raise OSError("Weights not found or unreadable.") from e
 
         # Collect the metric
         self.similarity_scores = []
